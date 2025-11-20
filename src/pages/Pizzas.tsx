@@ -1,7 +1,7 @@
-import {PIZZAS} from "../sampleData.ts";
+import {CartItemDetails, PIZZAS} from "../sampleData.ts";
 import {Link} from "react-router-dom";
 
-function Pizzas() {
+function Pizzas({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
   const pizzaElements = [];
 
   for (const id in PIZZAS) {
@@ -15,8 +15,15 @@ function Pizzas() {
           {pizza.price}
         </p>
         <Link to={"/pizza/" + id} className="text-blue-600 hover:text-blue-800">
-          Pizzas
+          Pizza Details
         </Link>
+        <br/>
+        <button
+          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          onClick={() => addToCart({pizzaId: id})}
+        >
+          Add to cart
+        </button>
       </div>
     )
 

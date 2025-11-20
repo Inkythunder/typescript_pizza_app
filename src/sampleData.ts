@@ -13,3 +13,8 @@ export interface PizzaDetails {
   name: string;
   price: string;
 }
+
+export interface CartItemDetails {
+  pizzaId: string;
+  customisations?: string[];
+}
