@@ -1,3 +1,5 @@
+import {PizzaDetails} from "./types.ts";
+
 export const PIZZAS: Record<string, PizzaDetails> = {
   "margherita": {
     "name": "Margherita",
@@ -9,12 +11,4 @@ export const PIZZAS: Record<string, PizzaDetails> = {
   }
 };
 
-export interface PizzaDetails {
-  name: string;
-  price: string;
-}
-
-export interface CartItemDetails {
-  pizzaId: string;
-  customisations?: string[];
-}
+export const TOPPINGS: string[] = ["Cheese", "Vegan Cheese", "Bacon", "Chorizo", "Jalapeno", "Mushrooms", "Onions", "Pepperoni", "Peppers", "Pineapple", "Sweetcorn"];

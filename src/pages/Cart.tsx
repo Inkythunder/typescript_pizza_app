@@ -1,6 +1,6 @@
-import {CartItemDetails, PIZZAS} from "../sampleData.ts";
+import {PIZZAS} from "../sampleData.ts";
 import {Link} from "react-router-dom";
-import {ShoppingCart} from "../App.tsx";
+import {ShoppingCart, CartItemDetails} from "../types.ts";
 
 function Cart({addToCart, removeFromCart, cartContents} :
               {addToCart: (item: CartItemDetails) => void,

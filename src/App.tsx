@@ -6,13 +6,9 @@ import Pizza from "./pages/Pizza.tsx";
 import Navbar from './components/Navbar';
 import Cart from "./pages/Cart.tsx";
 import {useState} from "react";
-import {CartItemDetails} from "./sampleData.ts";
-import cart from "./pages/Cart.tsx";
+import {CartItemDetails} from "./types.ts";
 import { v4 as uuidv4 } from 'uuid';
-
-export interface ShoppingCart {
-  [id: string]: CartItemDetails;
-}
+import {ShoppingCart} from "./types.ts";
 
 function App() {
 
