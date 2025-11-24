@@ -53,7 +53,7 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
               })
             }
           </form>
-          <AddToCartButton onClick={() => addToCart({pizzaId: id})} redirectTo={'/pizzas'}/>
+          <AddToCartButton onClick={() => addToCart({pizzaId: id, customisations: addedToppings})} redirectTo={'/pizzas'}/>
         </div>
       </div>
     </div>
