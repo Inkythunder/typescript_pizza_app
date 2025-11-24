@@ -1,6 +1,7 @@
 import {PIZZAS} from "../sampleData.ts";
 import {CartItemDetails} from "../types.ts";
 import {Link} from "react-router-dom";
+import AddToCartButton from "../components/AddToCartButton.tsx";
 
 function Pizzas({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
   const pizzaElements = [];
@@ -19,12 +20,7 @@ function Pizzas({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
           Pizza Details
         </Link>
         <br/>
-        <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          onClick={() => addToCart({pizzaId: id})}
-        >
-          Add to cart
-        </button>
+        <AddToCartButton onClick={() => addToCart({pizzaId: id})}/>
       </div>
     )
 

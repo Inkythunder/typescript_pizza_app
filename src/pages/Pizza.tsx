@@ -1,8 +1,10 @@
 import {PIZZAS, TOPPINGS} from "../sampleData.ts";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
+import AddToCartButton from "../components/AddToCartButton.tsx";
+import {CartItemDetails} from "../types.ts";
 
-function Pizza() {
+function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
 
   const {id} = useParams();
   if (!id) {
@@ -51,6 +53,7 @@ function Pizza() {
               })
             }
           </form>
+          <AddToCartButton onClick={() => addToCart({pizzaId: id})} redirectTo={'/pizzas'}/>
         </div>
       </div>
     </div>
