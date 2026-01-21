@@ -7,36 +7,13 @@ import {order_items, orders, pizzas, toppings} from '../db/schema'
 import request from "supertest";
 import postgres, {Sql} from "postgres";
 import {PizzaDatabase} from "../db";
+import {insertTestData} from "../db/sample_data";
 
 process.env.TESTCONTAINERS_RYUK_DISABLED = 'true';
 
 let container: StartedPostgreSqlContainer;
 let client: Sql<{}>;
 let db: PizzaDatabase;
-
-async function insertTestData() {
-
-  //insert a pizza to pizzas table
-  const pizzaId1 = "test_pizza_id";
-  await db.insert(pizzas).values([
-    {
-      id: pizzaId1,
-      name: 'Test Margherita',
-      description: 'Classic tomato and mozzarella',
-      image_url: 'https://example.com/margherita.jpg'
-    }
-  ]);
-
-  //insert topping
-  const toppingId = "test_topping_id";
-  await db.insert(toppings).values([
-    {
-      id: toppingId,
-      name: 'Cheese',
-      description: 'More cheese'
-    }
-  ]);
-}
 
 async function cleanupTestData() {
   await db.delete(order_items);
@@ -117,7 +94,7 @@ describe('POST /api/place_order', () => {
 
   beforeEach(async () => {
     await cleanupTestData();
-    await insertTestData();
+    await insertTestData(db);
   });
 
   it('should create an order successfully', async () => {
