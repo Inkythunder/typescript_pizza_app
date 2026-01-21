@@ -1,33 +1,35 @@
 import {PIZZAS} from "../sampleData.ts";
 import {Link} from "react-router-dom";
 import {ShoppingCart, CartItemDetails} from "../types.ts";
+import {useNavigate} from "react-router-dom";
 
 function Cart({addToCart, removeFromCart, cartContents} :
               {addToCart: (item: CartItemDetails) => void,
                 removeFromCart: (id: string) => void,
                 cartContents: ShoppingCart}) {
+
   const cartElements = [];
-
-
-  //for of, loop through keys, use keys to get pizza details?
-
-
   const cartIdList = Object.keys(cartContents);
+  let price = 0;
 
-  console.log(cartIdList)
   for (const cartId of cartIdList) {
-    console.log(cartId)
 
     const cartItem = cartContents[cartId];
     const currentPizza = PIZZAS[cartItem.pizzaId];
+    const currentPizzaToppings = cartItem.customisations;
+
+    price += parseInt(currentPizza.price);
 
     cartElements.push(
       <div className="mt-8 bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-3xl font-bold text-blue-600">
           {currentPizza.name}
         </h1>
+        <p>
+          {currentPizzaToppings?.join(', ')}
+        </p>
         <p className="mt-4 text-gray-600">
-          {currentPizza.price}
+          £{currentPizza.price}
         </p>
         <Link to={"/pizza/" + cartItem.pizzaId} className="text-blue-600 hover:text-blue-800">
           Pizza Details
@@ -42,9 +44,30 @@ function Cart({addToCart, removeFromCart, cartContents} :
       </div>
     )
   }
+
+  let totalPriceElement = [];
+  const navigate = useNavigate();
+
+  if(price > 0) {
+    totalPriceElement.push(
+      <div className="mt-8 bg-white p-8 rounded-lg shadow-md">
+        Total: £{price}
+        <br/>
+        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+        onClick={() => navigate('/checkout')}>
+          Go To Checkout
+        </button>
+
+      </div>
+    )
+  }
+
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
-      {cartElements}
+    <div>
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        {cartElements}
+      </div>
+      {totalPriceElement}
     </div>
   )
 }

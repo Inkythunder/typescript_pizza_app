@@ -9,6 +9,7 @@ import {useState} from "react";
 import {CartItemDetails} from "./types.ts";
 import { v4 as uuidv4 } from 'uuid';
 import {ShoppingCart} from "./types.ts";
+import Checkout from "./pages/Checkout.tsx";
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
                 removeFromCart={removeFromCart}
                 cartContents={cartContents}/>}
               />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>
     </div>
