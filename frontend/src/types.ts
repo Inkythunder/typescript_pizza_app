@@ -1,6 +1,9 @@
 export interface PizzaDetails {
+  id: string,
   name: string;
   price: string;
+  description: string;
+  image_url: string;
 }
 
 export interface CartItemDetails {

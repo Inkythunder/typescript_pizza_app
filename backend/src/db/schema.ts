@@ -3,6 +3,7 @@ import {integer, pgTable, serial, text, timestamp} from "drizzle-orm/pg-core";
 export const pizzas = pgTable('pizzas', {
   id: text('id').primaryKey().notNull(),
   name: text('name').notNull(),
+  price: integer('price').notNull(),
   description: text('description'),
   image_url: text('image_url'),
 });

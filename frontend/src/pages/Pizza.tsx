@@ -1,10 +1,13 @@
-import {PIZZAS, TOPPINGS} from "../sampleData.ts";
 import {useParams} from "react-router-dom";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import AddToCartButton from "../components/AddToCartButton.tsx";
 import {CartItemDetails} from "../types.ts";
+import {PizzaListContext} from "../App.tsx";
+import {TOPPINGS} from "../sampleData.ts";
 
 function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
+
+  const pizzaList = useContext(PizzaListContext);
 
   const {id} = useParams();
   if (!id) {
@@ -21,10 +24,10 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
       </div>
       <div>
         <h1 className="text-3xl font-bold text-blue-600">
-          {PIZZAS[id].name}
+          {pizzaList!![id].name}
         </h1>
         <p className="mt-4 text-gray-600">
-          Price: {PIZZAS[id].price}
+          Price: {pizzaList!![id].price}
         </p>
       </div>
       <div className="mt-6">
