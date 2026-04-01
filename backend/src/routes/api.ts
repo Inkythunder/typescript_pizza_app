@@ -3,6 +3,14 @@ import {pizzas, toppings, orders, order_items, work_days} from '../db/schema';
 import {v4 as uuidv4} from 'uuid';
 import {PizzaDatabase} from "../db";
 
+function associateById<E extends {id: string}>(arr: E[]) {
+  let result: Record<string, E> = {};
+  for(const element of arr){
+    result[element.id] = element;
+  }
+  return result;
+}
+
 export function createApiRoutes(db: PizzaDatabase) : Router {
 
   const router = Router();
@@ -12,7 +20,10 @@ export function createApiRoutes(db: PizzaDatabase) : Router {
     try {
       const allPizzas = await db.select().from(pizzas);
       const allToppings = await db.select().from(toppings);
-      res.json({allPizzas: allPizzas, allToppings: allToppings});
+      res.json({
+        allPizzas: associateById(allPizzas),
+        allToppings: associateById(allToppings),
+      });
     } catch (error) {
       console.error('Error getting pizzas', error);
       res.status(500).send('Error getting pizzas');

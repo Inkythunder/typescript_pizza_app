@@ -10,6 +10,7 @@ export async function insertTestData(db: PizzaDatabase) {
             {
                 id: pizzaId1,
                 name: 'Test Margherita',
+                price: 1499,
                 description: 'Classic tomato and mozzarella',
                 image_url: 'https://example.com/margherita.jpg'
             }

@@ -1,7 +1,8 @@
-import {PIZZAS} from "../sampleData.ts";
 import {Link} from "react-router-dom";
 import {ShoppingCart, CartItemDetails} from "../types.ts";
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {PizzaListContext} from "../App.tsx";
 
 function Cart({addToCart, removeFromCart, cartContents} :
               {addToCart: (item: CartItemDetails) => void,
@@ -9,13 +10,33 @@ function Cart({addToCart, removeFromCart, cartContents} :
                 cartContents: ShoppingCart}) {
 
   const cartElements = [];
+
   const cartIdList = Object.keys(cartContents);
+  if (cartIdList.length === 0) {
+    return (
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        <p>Your cart is empty.</p>
+        <Link to="/">back to pizzas</Link>
+      </div>
+    );
+  }
+
+  const pizzaList = useContext(PizzaListContext);
+
+  if(!pizzaList) {
+    return (
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        <p>Pizza list loading...</p>
+      </div>
+    );
+  }
+
   let price = 0;
 
   for (const cartId of cartIdList) {
 
     const cartItem = cartContents[cartId];
-    const currentPizza = PIZZAS[cartItem.pizzaId];
+    const currentPizza = pizzaList.allPizzas[cartItem.pizzaId];
     const currentPizzaToppings = cartItem.customisations;
 
     price += parseInt(currentPizza.price);

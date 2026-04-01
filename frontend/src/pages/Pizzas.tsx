@@ -8,9 +8,17 @@ function Pizzas({addToCart}: { addToCart: (item: CartItemDetails) => void }) {
   const pizzaElements = [];
   const pizzaList = useContext(PizzaListContext);
 
-  for (const id in pizzaList) {
+  if(!pizzaList) {
+    return (
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        <p>Pizza list loading...</p>
+      </div>
+    );
+  }
 
-    const pizza = pizzaList[id];
+  for (const id in pizzaList.allPizzas) {
+
+    const pizza = pizzaList.allPizzas[id];
 
     pizzaElements.push(
       <div className="mt-8 bg-white p-8 rounded-lg shadow-md">

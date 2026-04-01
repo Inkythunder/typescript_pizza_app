@@ -6,6 +6,12 @@ export interface PizzaDetails {
   image_url: string;
 }
 
+export interface ToppingDetails {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export interface CartItemDetails {
   pizzaId: string;
   customisations?: string[];

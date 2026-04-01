@@ -6,16 +6,28 @@ import Pizza from "./pages/Pizza.tsx";
 import Navbar from './components/Navbar';
 import Cart from "./pages/Cart.tsx";
 import {createContext, useEffect, useState} from "react";
-import {CartItemDetails, PizzaDetails, ShoppingCart} from "./types.ts";
+import {CartItemDetails, PizzaDetails, ShoppingCart, ToppingDetails} from "./types.ts";
 import {v4 as uuidv4} from 'uuid';
 import Checkout from "./pages/Checkout.tsx";
 
-export const PizzaListContext = createContext<Record<string, PizzaDetails> | null>(null);
+export interface PizzaListResponse {
+  allPizzas: Record<string, PizzaDetails>;
+  allToppings: Record<string, ToppingDetails>;
+}
+
+export const PizzaListContext = createContext<PizzaListResponse | null>(null);
 
 function App() {
 
-  const [cartContents, setCartContents] = useState<ShoppingCart>({});
-  const [pizzaList, setPizzasList] = useState<Record<string, PizzaDetails> | null>(null);
+  const [cartContents, setCartContents] = useState<ShoppingCart>(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [pizzaList, setPizzasList] = useState<PizzaListResponse | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartContents));
+  }, [cartContents]);
 
   useEffect(() => {
     const fetchData = async () => {
