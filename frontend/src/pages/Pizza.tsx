@@ -14,6 +14,14 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
     throw Error("No peets bro")
   }
 
+  if(!pizzaList) {
+    return (
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        <p>Pizza list loading...</p>
+      </div>
+    );
+  }
+
   const [addedToppings, setAddedToppings] = useState<string[]>([]);
 
   return (
@@ -24,10 +32,10 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
       </div>
       <div>
         <h1 className="text-3xl font-bold text-blue-600">
-          {pizzaList!![id].name}
+          {pizzaList.allPizzas[id].name}
         </h1>
         <p className="mt-4 text-gray-600">
-          Price: {pizzaList!![id].price}
+          Price: {pizzaList.allPizzas[id].price}
         </p>
       </div>
       <div className="mt-6">

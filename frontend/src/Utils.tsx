@@ -22,6 +22,8 @@ export function calculateTimeSlots(startTime: Time, endTime: Time) {
   return timeSlots;
 }
 
+
+
 export function generateOpeningHours(day: string, startTime: Time, endTime: Time): string[] {
   const timeSlots: string[] = [];
 

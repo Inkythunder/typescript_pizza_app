@@ -1,8 +1,16 @@
-import {generateOpeningHours} from "../Utils.tsx";
+import { useState, useEffect } from "react";
 
 function Checkout(){
 
-  const timeSlots: string[] = generateOpeningHours("Monday", {hours: 17, minutes: 0}, {hours: 21, minutes:0});
+  const [timeSlots, setTimeSlots] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchTimeSlots = async () => {
+      const response = await fetch("/api/get_timeslots");
+      const slots: string[] = await response.json();
+      setTimeSlots(slots);
+    };
+    fetchTimeSlots().catch(console.error);
+  }, []);
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md flex gap-6 items-center">

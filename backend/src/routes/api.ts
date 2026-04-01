@@ -2,6 +2,7 @@ import {Router} from 'express';
 import {pizzas, toppings, orders, order_items, work_days} from '../db/schema';
 import {v4 as uuidv4} from 'uuid';
 import {PizzaDatabase} from "../db";
+import {gt} from "drizzle-orm";
 
 function associateById<E extends {id: string}>(arr: E[]) {
   let result: Record<string, E> = {};
@@ -69,10 +70,13 @@ export function createApiRoutes(db: PizzaDatabase) : Router {
   router.get("/get_timeslots", async (req, res) => {
 
     //make an array of active shop time windows (eg. 17:00 - 21:00)
-    const workDays = await db.select().from(work_days);
+    const workDays = await db.select().from(work_days).where(gt(work_days.start_time, new Date()))
+    ; //TODO where start time is gt now
 
     //get timeslots that are already booked as an array of UNIX times (eg. 17:10, 17:20)
-    const bookedSlots = (await db.select({timeslot: orders.timeslot}).from(orders)).map(x => x.timeslot.getTime());
+    //TODO where orders.timeslot gt now
+    const bookedSlots = (await db.select({timeslot: orders.timeslot}).from(orders).where(gt(orders.timeslot, new Date()))
+  ).map(x => x.timeslot.getTime());
 
     //loop through time windows to build array of timeslots
     const allSlots: Date[] = [];
