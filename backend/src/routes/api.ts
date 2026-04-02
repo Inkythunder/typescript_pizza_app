@@ -4,15 +4,15 @@ import {v4 as uuidv4} from 'uuid';
 import {PizzaDatabase} from "../db";
 import {gt} from "drizzle-orm";
 
-function associateById<E extends {id: string}>(arr: E[]) {
+function associateById<E extends { id: string }>(arr: E[]) {
   let result: Record<string, E> = {};
-  for(const element of arr){
+  for (const element of arr) {
     result[element.id] = element;
   }
   return result;
 }
 
-export function createApiRoutes(db: PizzaDatabase) : Router {
+export function createApiRoutes(db: PizzaDatabase): Router {
 
   const router = Router();
 
@@ -70,13 +70,19 @@ export function createApiRoutes(db: PizzaDatabase) : Router {
   router.get("/get_timeslots", async (req, res) => {
 
     //make an array of active shop time windows (eg. 17:00 - 21:00)
-    const workDays = await db.select().from(work_days).where(gt(work_days.start_time, new Date()))
-    ; //TODO where start time is gt now
+    //TODO where start time is gt now
+    const workDays = await db
+      .select()
+      .from(work_days)
+      .where(gt(work_days.start_time, new Date()));
 
     //get timeslots that are already booked as an array of UNIX times (eg. 17:10, 17:20)
     //TODO where orders.timeslot gt now
-    const bookedSlots = (await db.select({timeslot: orders.timeslot}).from(orders).where(gt(orders.timeslot, new Date()))
-  ).map(x => x.timeslot.getTime());
+    const bookedSlots = (await db
+      .select({timeslot: orders.timeslot})
+      .from(orders)
+      .where(gt(orders.timeslot, new Date())))
+      .map(x => x.timeslot.getTime());
 
     //loop through time windows to build array of timeslots
     const allSlots: Date[] = [];
@@ -86,7 +92,7 @@ export function createApiRoutes(db: PizzaDatabase) : Router {
 
       let currentTime = new Date(lowerBound);
       while (currentTime < upperBound) {
-        allSlots.push(currentTime);
+        allSlots.push(new Date(currentTime));
         currentTime.setMinutes(currentTime.getMinutes() + 10);
       }
     }

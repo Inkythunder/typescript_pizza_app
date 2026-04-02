@@ -63,7 +63,7 @@ function Checkout(){
                 <option value="">Select a time</option>
                 {timeSlots.map((time) => (
                   <option key={time} value={time}>
-                    {time}
+                    {new Date(time).toLocaleString([], { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                   </option>
                 ))}
               </select>
