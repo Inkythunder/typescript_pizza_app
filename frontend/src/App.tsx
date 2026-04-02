@@ -1,4 +1,4 @@
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useNavigate} from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Pizzas from "./pages/Pizzas.tsx";
@@ -15,9 +15,18 @@ export interface PizzaListResponse {
   allToppings: Record<string, ToppingDetails>;
 }
 
+export interface OrderFormData {
+  customer_name: string;
+  email: string;
+  phone: string;
+  timeslot: string;
+}
+
 export const PizzaListContext = createContext<PizzaListResponse | null>(null);
 
 function App() {
+
+  const navigate = useNavigate();
 
   const [cartContents, setCartContents] = useState<ShoppingCart>(() => {
     const saved = localStorage.getItem("cart");
@@ -65,6 +74,41 @@ function App() {
     })
   }
 
+  async function checkout(formData: OrderFormData) {
+    const orderItems = Object.entries(cartContents).map(([cartId, item]) => ({
+      id: cartId,
+      base_pizza_id: item.pizzaId,
+      extra_toppings: item.customisations || [],
+    }));
+
+    const totalPrice = Object.values(cartContents).reduce((sum, item) => {
+      const pizza = pizzaList?.allPizzas[item.pizzaId];
+      return sum + (pizza ? Number(pizza.price) : 0);
+    }, 0);
+
+    const response = await fetch("/api/place_order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        total_price: totalPrice,
+        customer_name: formData.customer_name,
+        email: formData.email,
+        phone: formData.phone,
+        timeslot: formData.timeslot,
+        order_items: orderItems,
+      }),
+    });
+
+    if (!response.ok) {
+      alert("Error placing order");
+      return;
+    }
+
+    setCartContents({});
+    alert("Your order has been placed!");
+    navigate("/");
+  }
+
   return (
     <PizzaListContext.Provider value={pizzaList}>
       <div className="min-h-screen bg-gray-50">
@@ -76,15 +120,13 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/pizzas" element={<Pizzas addToCart={addToCart} />} />
             <Route path="/pizza/:id" element={<Pizza addToCart={addToCart} />} />
-            <Route
-              path="/cart"
-              element={
+            <Route path="/cart" element={
                 <Cart
                   addToCart={addToCart}
                   removeFromCart={removeFromCart}
                   cartContents={cartContents}/>}
             />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout checkout={checkout}/>} />
           </Routes>
         </main>
       </div>

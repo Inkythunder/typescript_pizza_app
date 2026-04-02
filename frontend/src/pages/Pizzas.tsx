@@ -27,7 +27,7 @@ function Pizzas({addToCart}: { addToCart: (item: CartItemDetails) => void }) {
           {pizza.name}
         </h1>
         <p className="mt-4 text-gray-600">
-          {pizza.price}
+          £{(Number(pizza.price) / 100).toFixed(2)}
         </p>
         <p className="mt-4 text-gray-600">
           {pizza.description}

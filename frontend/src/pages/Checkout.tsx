@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
+import { OrderFormData } from "../App";
 
-function Checkout(){
+function Checkout({ checkout }: { checkout: (data: OrderFormData) => void }) {
 
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [collectionTime, setCollectionTime] = useState("");
+
   useEffect(() => {
     const fetchTimeSlots = async () => {
       const response = await fetch("/api/get_timeslots");
@@ -11,6 +18,15 @@ function Checkout(){
     };
     fetchTimeSlots().catch(console.error);
   }, []);
+
+  function handleCheckout() {
+    checkout({
+      customer_name: `${firstName} ${lastName}`,
+      email,
+      phone,
+      timeslot: collectionTime,
+    });
+  }
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md flex gap-6 items-center">
@@ -23,6 +39,8 @@ function Checkout(){
               </label>
               <input type="text"
                      id="firstName"
+                     value={firstName}
+                     onChange={(e) => setFirstName(e.target.value)}
                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
                      required={true}/>
               <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -30,6 +48,8 @@ function Checkout(){
               </label>
               <input type="text"
                      id="lastName"
+                     value={lastName}
+                     onChange={(e) => setLastName(e.target.value)}
                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
                      required={true}/>
             </div>
@@ -39,6 +59,8 @@ function Checkout(){
               </label>
               <input type="text"
                      id="phoneNumber"
+                     value={phone}
+                     onChange={(e) => setPhone(e.target.value)}
                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
                      required={true}/>
             </div>
@@ -48,6 +70,8 @@ function Checkout(){
               </label>
               <input type="text"
                      id="emailAddress"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
                      required={true}/>
             </div>
@@ -58,6 +82,8 @@ function Checkout(){
               <select
                 id="collectionTime"
                 name="collectionTime"
+                value={collectionTime}
+                onChange={(e) => setCollectionTime(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               >
                 <option value="">Select a time</option>
@@ -67,6 +93,15 @@ function Checkout(){
                   </option>
                 ))}
               </select>
+            </div>
+            <div>
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                onClick={handleCheckout}
+              >
+                Place Order
+              </button>
             </div>
           </div>
         </div>

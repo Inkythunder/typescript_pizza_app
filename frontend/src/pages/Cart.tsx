@@ -50,7 +50,7 @@ function Cart({addToCart, removeFromCart, cartContents} :
           {currentPizzaToppings?.join(', ')}
         </p>
         <p className="mt-4 text-gray-600">
-          £{currentPizza.price}
+          £{(Number(currentPizza.price) / 100).toFixed(2)}
         </p>
         <Link to={"/pizza/" + cartItem.pizzaId} className="text-blue-600 hover:text-blue-800">
           Pizza Details
@@ -79,7 +79,7 @@ function Cart({addToCart, removeFromCart, cartContents} :
   if(price > 0) {
     totalPriceElement.push(
       <div className="mt-8 bg-white p-8 rounded-lg shadow-md">
-        Total: £{price}
+        Total: £{(price / 100).toFixed(2)}
         <br/>
         <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         onClick={() => navigate('/checkout')}>

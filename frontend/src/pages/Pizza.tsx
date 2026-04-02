@@ -35,7 +35,7 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
           {pizzaList.allPizzas[id].name}
         </h1>
         <p className="mt-4 text-gray-600">
-          Price: {pizzaList.allPizzas[id].price}
+          Price: £{(Number(pizzaList.allPizzas[id].price) / 100).toFixed(2)}
         </p>
       </div>
       <div className="mt-6">
