@@ -42,33 +42,41 @@ function Cart({addToCart, removeFromCart, cartContents} :
     price += parseInt(currentPizza.price);
 
     cartElements.push(
-      <div className="mt-8 bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-blue-600">
-          {currentPizza.name}
-        </h1>
-        <p>
-          {currentPizzaToppings?.join(', ')}
-        </p>
-        <p className="mt-4 text-gray-600">
-          £{(Number(currentPizza.price) / 100).toFixed(2)}
-        </p>
-        <Link to={"/pizza/" + cartItem.pizzaId} className="text-blue-600 hover:text-blue-800">
-          Pizza Details
+      <div key={cartId} className="mt-8 bg-white p-8 rounded-lg shadow-md flex items-center gap-6">
+        <Link to={"/pizza/" + cartItem.pizzaId}>
+          <img
+            src={currentPizza.image_url}
+            alt={currentPizza.name}
+            className="w-32 h-32 object-cover rounded-lg"
+          />
         </Link>
-        <br/>
-        <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          onClick={() => addToCart(cartItem)}
-        >
-          Add to cart
-        </button>
-        <br/>
-        <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          onClick={() => removeFromCart(cartId)}
-        >
-          Remove from cart
-        </button>
+        <div className="flex flex-col">
+          <Link to={"/pizza/" + cartItem.pizzaId} className="text-3xl font-bold text-blue-600 hover:text-blue-800">
+            {currentPizza.name}
+          </Link>
+          <p className="text-gray-600">
+            £{(Number(currentPizza.price) / 100).toFixed(2)}
+          </p>
+          {currentPizzaToppings && currentPizzaToppings.length > 0 && (
+            <p className="text-gray-500">
+              Extra: {currentPizzaToppings.join(', ')}
+            </p>
+          )}
+        </div>
+        <div className="ml-auto flex flex-col gap-2">
+          <button
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            onClick={() => addToCart(cartItem)}
+          >
+            Add to cart
+          </button>
+          <button
+            className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+            onClick={() => removeFromCart(cartId)}
+          >
+            Remove from cart
+          </button>
+        </div>
       </div>
     )
   }
@@ -91,7 +99,7 @@ function Cart({addToCart, removeFromCart, cartContents} :
   }
 
   return (
-    <div>
+    <div className="max-w-6xl mx-auto">
       <div className="bg-white p-8 rounded-lg shadow-md">
         {cartElements}
       </div>

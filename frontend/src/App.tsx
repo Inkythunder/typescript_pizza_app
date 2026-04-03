@@ -105,14 +105,14 @@ function App() {
     }
 
     setCartContents({});
-    alert("Your order has been placed!");
+    alert("Order placed");
     navigate("/");
   }
 
   return (
     <PizzaListContext.Provider value={pizzaList}>
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        <Navbar cartCount={Object.keys(cartContents).length} />
 
         <main className="p-6">
           <Routes>

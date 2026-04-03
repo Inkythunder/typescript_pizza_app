@@ -26,45 +26,45 @@ function Pizza({addToCart} :{addToCart: (item: CartItemDetails) => void}) {
 
   return (
 
-    <div className="bg-white p-8 rounded-lg shadow-md flex gap-6 items-center">
-      <div className="w-32 h-32 bg-gray-200 rounded-lg flex-shrink-0 flex items-center justify-center text-gray-400">
-        Image
-      </div>
-      <div>
-        <h1 className="text-3xl font-bold text-blue-600">
-          {pizzaList.allPizzas[id].name}
-        </h1>
-        <p className="mt-4 text-gray-600">
-          Price: £{(Number(pizzaList.allPizzas[id].price) / 100).toFixed(2)}
-        </p>
-      </div>
-      <div className="mt-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3">Additional Toppings</h2>
-        <div className="space-y-2">
-          <form>
-            {
-              TOPPINGS.map((topping) => {
-                return <div>
-                  <input
-                    type="checkbox"
-                    id={topping}
-                    checked={addedToppings.includes(topping)}
-                    onChange={(event) => {
-                      if (event.target.checked) {
-                        setAddedToppings(prevState => [...prevState, topping]);
-                      } else {
-                        setAddedToppings(prevState => prevState.filter(
-                          (removedTopping) => topping != removedTopping
-                        ));
-                      }
-                    }}
-                  />
-                  <label htmlFor={topping}>{topping}</label>
-                </div>
-              })
-            }
-          </form>
-          <AddToCartButton onClick={() => addToCart({pizzaId: id, customisations: addedToppings})} redirectTo={'/pizzas'}/>
+    <div className="max-w-6xl mx-auto">
+      <div className="bg-white p-8 rounded-lg shadow-md flex gap-6 items-center">
+        <img src={`/${pizzaList.allPizzas[id].image_url}`} alt={pizzaList.allPizzas[id].name} className="w-32 h-32 object-cover rounded-lg flex-shrink-0" />
+        <div>
+          <h1 className="text-3xl font-bold text-blue-600">
+            {pizzaList.allPizzas[id].name}
+          </h1>
+          <p className="mt-4 text-gray-600">
+            Price: £{(Number(pizzaList.allPizzas[id].price) / 100).toFixed(2)}
+          </p>
+        </div>
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-3">Additional Toppings</h2>
+          <div className="space-y-2">
+            <form>
+              {
+                TOPPINGS.map((topping) => {
+                  return <div>
+                    <input
+                      type="checkbox"
+                      id={topping}
+                      checked={addedToppings.includes(topping)}
+                      onChange={(event) => {
+                        if (event.target.checked) {
+                          setAddedToppings(prevState => [...prevState, topping]);
+                        } else {
+                          setAddedToppings(prevState => prevState.filter(
+                            (removedTopping) => topping != removedTopping
+                          ));
+                        }
+                      }}
+                    />
+                    <label htmlFor={topping}>{topping}</label>
+                  </div>
+                })
+              }
+            </form>
+            <AddToCartButton onClick={() => addToCart({pizzaId: id, customisations: addedToppings})} redirectTo={'/pizzas'}/>
+          </div>
         </div>
       </div>
     </div>

@@ -16,14 +16,40 @@ export async function insertTestData(db: PizzaDatabase) {
 
     await db.transaction(async (trx) => {
         //insert a pizza to pizzas table
-        const pizzaId1 = "test_pizza_id";
         await trx.insert(pizzas).values([
             {
-                id: pizzaId1,
-                name: 'Test Margherita',
-                price: 1499,
+                id: 'margherita',
+                name: 'Margherita',
+                price: 1399,
                 description: 'Classic tomato and mozzarella',
-                image_url: 'https://example.com/margherita.jpg'
+                image_url: 'margherita.avif'
+            }
+        ]);
+        await trx.insert(pizzas).values([
+            {
+                id: 'pepperoni',
+                name: 'Pepperoni',
+                price: 1499,
+                description: 'Pepperoni pizza with tomato and mozzarella',
+                image_url: 'pepperoni_pizza.avif'
+            }
+        ]);
+        await trx.insert(pizzas).values([
+            {
+                id: 'hot_one',
+                name: 'Hot One',
+                price: 1499,
+                description: 'Spicy pepperoni and salami with nduja and jalapeños',
+                image_url: 'hot_one.avif'
+            }
+        ]);
+        await trx.insert(pizzas).values([
+            {
+                id: 'vegetarian',
+                name: 'Leaf lovers',
+                price: 1499,
+                description: 'Vegatarian pizza with ricotta, mushrooms, basil, and olives.',
+                image_url: 'vegetarian.avif'
             }
         ]);
 

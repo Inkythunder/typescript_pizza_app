@@ -21,29 +21,29 @@ function Pizzas({addToCart}: { addToCart: (item: CartItemDetails) => void }) {
     const pizza = pizzaList.allPizzas[id];
 
     pizzaElements.push(
-      <div className="mt-8 bg-white p-8 rounded-lg shadow-md">
-        //TODO make image appear here
-        <h1 className="text-3xl font-bold text-blue-600">
+      <Link to={"/pizza/" + id} key={id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow block">
+        <img src={`/${pizza.image_url}`} alt={pizza.name} className="w-full h-48 object-cover rounded-lg" />
+        <h1 className="mt-3 text-2xl font-bold text-blue-600">
           {pizza.name}
         </h1>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-2 text-gray-600">
           £{(Number(pizza.price) / 100).toFixed(2)}
         </p>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-2 text-gray-600">
           {pizza.description}
         </p>
-        <Link to={"/pizza/" + id} className="text-blue-600 hover:text-blue-800">
-          Pizza Details
-        </Link>
-        <br/>
-        <AddToCartButton onClick={() => addToCart({pizzaId: id})}/>
-      </div>
+        <div onClick={(e) => e.preventDefault()}>
+          <AddToCartButton onClick={() => addToCart({pizzaId: id})}/>
+        </div>
+      </Link>
     )
 
   }
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
-      {pizzaElements}
+    <div className="max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {pizzaElements}
+      </div>
     </div>
   )
 }
