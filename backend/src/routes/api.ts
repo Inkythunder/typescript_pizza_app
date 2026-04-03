@@ -16,7 +16,7 @@ export function createApiRoutes(db: PizzaDatabase): Router {
 
   const router = Router();
 
-//get all pizzas and toppings
+  //get all pizzas and toppings
   router.get('/pizzas', async (req, res) => {
     try {
       const allPizzas = await db.select().from(pizzas);
@@ -31,10 +31,10 @@ export function createApiRoutes(db: PizzaDatabase): Router {
     }
   })
 
-//place an order
+  //place an order
   router.post('/place_order', async (req, res) => {
 
-    //insert into order
+    //insert into orders table
     //then into order items as well in a for loop
 
     try {
@@ -70,14 +70,12 @@ export function createApiRoutes(db: PizzaDatabase): Router {
   router.get("/get_timeslots", async (req, res) => {
 
     //make an array of active shop time windows (eg. 17:00 - 21:00)
-    //TODO where start time is gt now
     const workDays = await db
       .select()
       .from(work_days)
       .where(gt(work_days.start_time, new Date()));
 
     //get timeslots that are already booked as an array of UNIX times (eg. 17:10, 17:20)
-    //TODO where orders.timeslot gt now
     const bookedSlots = (await db
       .select({timeslot: orders.timeslot})
       .from(orders)

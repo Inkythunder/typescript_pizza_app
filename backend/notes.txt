@@ -1,1 +1,0 @@
-as of 12/01/26 you have to restart your pc to get the tests to work but they should work with "npm run test" after that

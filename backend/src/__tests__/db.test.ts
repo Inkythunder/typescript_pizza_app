@@ -63,8 +63,8 @@ describe('GET /api/pizzas', () => {
   it('should return all pizzas', async () => {
 
     await db.insert(pizzas).values([
-      { id: '1', name: 'Margherita', description: "test" },
-      { id: '2', name: 'Pepperoni', description: "test" },
+      { id: '1', name: 'Margherita', price: 1399, description: "test" },
+      { id: '2', name: 'Pepperoni', price: 1399, description: "test" },
     ]);
 
     const app = createApp(db);
@@ -74,8 +74,8 @@ describe('GET /api/pizzas', () => {
 
     const allPizzas = response.body.allPizzas;
 
-    expect(allPizzas).toHaveLength(2);
-    expect(allPizzas[0].name).toBe('Margherita');
+    expect(Object.keys(allPizzas)).toHaveLength(2);
+    expect(allPizzas['1'].name).toBe('Margherita');
   });
 
   it('should return an empty array when no pizzas exist', async () => {
@@ -86,7 +86,7 @@ describe('GET /api/pizzas', () => {
     const response = await request(app).get('/api/pizzas');
 
     expect(response.status).toBe(200);
-    expect(response.body.allPizzas).toEqual([]);
+    expect(response.body.allPizzas).toEqual({});
   });
 });
 
@@ -107,8 +107,8 @@ describe('POST /api/place_order', () => {
       order_items: [
         {
           id: 'test-item-1',
-          base_pizza_id: 'test_pizza_id',
-          extra_toppings: ['test_topping_id']
+          base_pizza_id: 'margherita',
+          extra_toppings: ['cheese']
         }
       ]
     };

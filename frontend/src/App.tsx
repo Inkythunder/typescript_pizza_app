@@ -1,6 +1,5 @@
 import {Route, Routes, useNavigate} from 'react-router-dom'
 import Home from './pages/Home'
-import About from './pages/About'
 import Pizzas from "./pages/Pizzas.tsx";
 import Pizza from "./pages/Pizza.tsx";
 import Navbar from './components/Navbar';
@@ -117,7 +116,6 @@ function App() {
         <main className="p-6">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
             <Route path="/pizzas" element={<Pizzas addToCart={addToCart} />} />
             <Route path="/pizza/:id" element={<Pizza addToCart={addToCart} />} />
             <Route path="/cart" element={

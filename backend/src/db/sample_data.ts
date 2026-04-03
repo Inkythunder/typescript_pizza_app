@@ -53,13 +53,83 @@ export async function insertTestData(db: PizzaDatabase) {
             }
         ]);
 
-        //insert topping
-        const toppingId = "test_topping_id";
+
+        //insert toppings
         await trx.insert(toppings).values([
             {
-                id: toppingId,
+                id: 'cheese',
                 name: 'Cheese',
                 description: 'More cheese'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'vegan_cheese',
+                name: 'Vegan Cheese',
+                description: 'Vegan cheese'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'bacon',
+                name: 'Bacon',
+                description: 'Bacon'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'chorizo',
+                name: 'Chorizo',
+                description: 'Chorizo'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'jalapeno',
+                name: 'Jalapeno',
+                description: 'Jalapeno'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'mushrooms',
+                name: 'Mushrooms',
+                description: 'Mushrooms'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'onions',
+                name: 'Onions',
+                description: 'Onions'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'pepperoni',
+                name: 'Pepperoni',
+                description: 'Pepperoni'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'peppers',
+                name: 'Peppers',
+                description: 'Peppers'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'pineapple',
+                name: 'Pineapple',
+                description: 'Pineapple'
+            }
+        ]);
+        await trx.insert(toppings).values([
+            {
+                id: 'sweetcorn',
+                name: 'Sweetcorn',
+                description: 'Sweetcorn'
             }
         ]);
 

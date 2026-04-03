@@ -8,9 +8,6 @@ function Navbar({ cartCount }: { cartCount: number }) {
           <Link to="/" className="m-2 text-blue-600 hover:text-blue-800">
             Home
           </Link>
-          <Link to="/about" className="m-2 text-blue-600 hover:text-blue-800">
-            About
-          </Link>
           <Link to="/pizzas" className="m-2 text-blue-600 hover:text-blue-800">
             Pizzas
           </Link>

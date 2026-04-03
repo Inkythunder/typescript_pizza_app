@@ -15,7 +15,6 @@ export const toppings = pgTable('toppings', {
 });
 
 export const orders = pgTable('orders', {
-  //make this a UUID in typescript code and find a way to make it appear here
   id: text('id').primaryKey().notNull(),
   total_price: integer('total_price').notNull(),
   customer_name: text('customer_name').notNull(),

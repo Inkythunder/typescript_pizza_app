@@ -1,33 +1,15 @@
-import {useState} from "react";
+import {Link} from "react-router-dom";
 
 function Home() {
-  const [pressedCount, setPressedCount] = useState(0);
-
-  function buttonWasClicked() {
-    setPressedCount(pressedCount + 1);
-  }
-
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-blue-600">
-          Vite + React + TypeScript + Tailwind v4
-        </h1>
-        <p className="mt-4 text-gray-600">
-          Your manual setup is complete!
-        </p>
-        <p className="mt-2 text-gray-600">
-          This is the home page. Navigate using the links above.
-        </p>
-      </div>
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          onClick={buttonWasClicked}
-        >
-          Buttony boi {pressedCount}
-        </button>
-      </div>
+    <div className="flex flex-col items-center justify-center" style={{minHeight: "calc(100vh - 120px)"}}>
+      <h1 className="text-5xl font-bold text-gray-800 mb-12">Luigi's Pizza</h1>
+      <Link
+        to="/pizzas"
+        className="animate-bounce bg-blue-600 hover:bg-blue-700 text-white text-2xl font-bold py-6 px-12 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+      >
+        Order Now
+      </Link>
     </div>
   )
 }
