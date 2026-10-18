@@ -1,0 +1,1 @@
+ALTER TABLE "pizzas" ADD COLUMN "price" integer NOT NULL;

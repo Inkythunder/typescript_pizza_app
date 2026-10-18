@@ -8,6 +8,7 @@ import {createContext, useEffect, useState} from "react";
 import {CartItemDetails, PizzaDetails, ShoppingCart, ToppingDetails} from "./types.ts";
 import {v4 as uuidv4} from 'uuid';
 import Checkout from "./pages/Checkout.tsx";
+import Login from "./pages/Login.tsx";
 
 export interface PizzaListResponse {
   allPizzas: Record<string, PizzaDetails>;
@@ -19,6 +20,14 @@ export interface OrderFormData {
   email: string;
   phone: string;
   timeslot: string;
+}
+
+export interface SignedInUser {
+  email: string;
+  type: number;
+  username: string;
+  first_name: string;
+  last_name: string;
 }
 
 export const PizzaListContext = createContext<PizzaListResponse | null>(null);
@@ -108,6 +117,7 @@ function App() {
     navigate("/");
   }
 
+
   return (
     <PizzaListContext.Provider value={pizzaList}>
       <div className="min-h-screen bg-gray-50">
@@ -116,6 +126,7 @@ function App() {
         <main className="p-6">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/pizzas" element={<Pizzas addToCart={addToCart} />} />
             <Route path="/pizza/:id" element={<Pizza addToCart={addToCart} />} />
             <Route path="/cart" element={

@@ -35,3 +35,13 @@ export const work_days = pgTable('work_days', {
   start_time: timestamp('start_time').notNull(),
   end_time: timestamp('end_time').notNull(),
 })
+
+export const user_accounts = pgTable('user_accounts', {
+  id: text('id').primaryKey().notNull(),
+  type: integer('type').notNull(),
+  username: text('username').notNull(),
+  first_name: text('first_name').notNull(),
+  last_name: text('last_name').notNull(),
+  phone: text('phone'),
+  email: text('email'),
+})

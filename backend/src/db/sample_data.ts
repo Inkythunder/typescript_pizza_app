@@ -23,27 +23,21 @@ export async function insertTestData(db: PizzaDatabase) {
                 price: 1399,
                 description: 'Classic tomato and mozzarella',
                 image_url: 'margherita.avif'
-            }
-        ]);
-        await trx.insert(pizzas).values([
+            },
             {
                 id: 'pepperoni',
                 name: 'Pepperoni',
                 price: 1499,
                 description: 'Pepperoni pizza with tomato and mozzarella',
                 image_url: 'pepperoni_pizza.avif'
-            }
-        ]);
-        await trx.insert(pizzas).values([
+            },
             {
                 id: 'hot_one',
                 name: 'Hot One',
                 price: 1499,
                 description: 'Spicy pepperoni and salami with nduja and jalapeños',
                 image_url: 'hot_one.avif'
-            }
-        ]);
-        await trx.insert(pizzas).values([
+            },
             {
                 id: 'vegetarian',
                 name: 'Leaf lovers',
@@ -60,72 +54,52 @@ export async function insertTestData(db: PizzaDatabase) {
                 id: 'cheese',
                 name: 'Cheese',
                 description: 'More cheese'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'vegan_cheese',
                 name: 'Vegan Cheese',
                 description: 'Vegan cheese'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'bacon',
                 name: 'Bacon',
                 description: 'Bacon'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'chorizo',
                 name: 'Chorizo',
                 description: 'Chorizo'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'jalapeno',
                 name: 'Jalapeno',
                 description: 'Jalapeno'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'mushrooms',
                 name: 'Mushrooms',
                 description: 'Mushrooms'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'onions',
                 name: 'Onions',
                 description: 'Onions'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'pepperoni',
                 name: 'Pepperoni',
                 description: 'Pepperoni'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'peppers',
                 name: 'Peppers',
                 description: 'Peppers'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'pineapple',
                 name: 'Pineapple',
                 description: 'Pineapple'
-            }
-        ]);
-        await trx.insert(toppings).values([
+            },
             {
                 id: 'sweetcorn',
                 name: 'Sweetcorn',
